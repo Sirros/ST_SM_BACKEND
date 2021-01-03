@@ -1,7 +1,7 @@
 ### project init (koa2 generator)
 
 #### 项目目录结构
-- bin
+- bin  
  -- www  ->  项目启动必备文件，配置端口等信息  
 +-- node_modules  ->  项目依赖(远程仓库没有提交)  
 +-- public  
