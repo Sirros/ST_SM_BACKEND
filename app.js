@@ -18,6 +18,7 @@ app.use(bodyparser({
 }))
 app.use(json())
 app.use(logger())
+console.log(__dirname)
 app.use(require('koa-static')(__dirname + '/public'))
 
 app.use(views(__dirname + '/views', {
