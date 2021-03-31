@@ -1,7 +1,7 @@
-const { Sequelize, DataTypes } = require("sequelize");
+const { DataTypes } = require("sequelize");
 const sequelize = require("../../config/db").sequelize;
 
-const Member = sequelize.define(
+const MemberModel = sequelize.define(
   "total_members",
   {
     name: {
@@ -67,4 +67,4 @@ const Member = sequelize.define(
   }
 );
 
-module.exports = Member;
+module.exports = MemberModel;
