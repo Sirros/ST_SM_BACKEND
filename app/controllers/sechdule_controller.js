@@ -8,5 +8,4 @@ const getSechduleDetails = async function () {
   return await SechduleModel.findAll();
 };
 
-getSechduleDetails();
 module.exports = { getSechduleDetails };
