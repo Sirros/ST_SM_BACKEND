@@ -60,6 +60,10 @@ const MemberModel = sequelize.define(
       type: DataTypes.STRING,
       allowNull: true,
     },
+    signature: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   },
   {
     freezeTableName: true,

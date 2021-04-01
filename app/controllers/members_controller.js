@@ -14,7 +14,8 @@ const getTotalMembers = async function () {
     (item) => item.attr === "队长" || item.attr === "经理"
   ).length;
   const players = result.filter((item) => item.attr === "队员").length;
-  return { players, managers };
+  const autoScrollList = result.map((item) => item.signature);
+  return { players, managers, autoScrollList };
 };
 
 const getPictureCount = async function () {
