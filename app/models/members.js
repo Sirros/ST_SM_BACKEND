@@ -8,7 +8,7 @@ const MemberModel = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    student_id: {
+    studentId: {
       type: DataTypes.NUMBER,
       allowNull: false,
     },
@@ -20,7 +20,7 @@ const MemberModel = sequelize.define(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    take_charge: {
+    charge: {
       type: DataTypes.STRING,
       allowNull: true,
     },
@@ -44,7 +44,7 @@ const MemberModel = sequelize.define(
       type: DataTypes.NUMBER,
       allowNull: true,
     },
-    email: {
+    em: {
       type: DataTypes.STRING,
       allowNull: true,
     },
