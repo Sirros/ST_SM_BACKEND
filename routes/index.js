@@ -2,6 +2,7 @@ const router = require("koa-router")();
 const { getWelcomePageInfo } = require("../app/service/welcome_service");
 const { getSeduleDetails } = require("../app/service/sechdule_service");
 const { getRosterPageDate } = require("../app/service/roster_service");
+const { getMatchInfo } = require("../app/service/match_info_service");
 
 router.get("/", async (ctx, next) => {
   await ctx.render("index", {
@@ -26,6 +27,10 @@ router.get("/api/getRosterData", async (ctx, next) => {
       ...data,
     },
   };
+});
+
+router.get("/api/getResultData", async (ctx, next) => {
+  ctx.body = await getMatchInfo();
 });
 
 router.get("/json", async (ctx, next) => {
