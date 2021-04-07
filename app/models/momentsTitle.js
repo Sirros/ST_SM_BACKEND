@@ -6,8 +6,15 @@ const MomentTitleModel = sequelize.define(
   {
     title: { type: DataTypes.STRING, allowNull: false },
     creator: { type: DataTypes.STRING, allowNull: false },
-    momentId: { type: DataTypes.NUMBER, allowNull: false, primaryKey: true },
-    createdAt: { type: DataTypes.NUMBER, allowNull: true },
+    momentId: {
+      type: DataTypes.NUMBER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    createTime: { type: DataTypes.NUMBER, allowNull: false },
+    // createdAt: { type: DataTypes.NUMBER, allowNull: true },
+    // updatedAt: { type: DataTypes.NUMBER, allowNull: true },
   },
   {
     freezeTableName: true,

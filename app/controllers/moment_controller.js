@@ -10,11 +10,15 @@ const getFile = async function () {
       {
         model: MomentDetailsModel,
         as: "picList",
-        attributes: ["url"],
+        attributes: ["url", "id"],
       },
     ],
   });
   return { data };
 };
 
-module.exports = { getFile };
+const insertTitle = async function (params) {
+  return MomentTitleModel.create(params);
+};
+
+module.exports = { getFile, insertTitle };

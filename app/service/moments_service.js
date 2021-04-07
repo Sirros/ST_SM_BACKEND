@@ -1,9 +1,14 @@
 const momentController = require("../controllers/moment_controller");
 
-const { getFile } = momentController;
+const { getFile, insertTitle } = momentController;
 
 const getFileList = async function () {
   return await getFile();
 };
 
-module.exports = { getFileList };
+const addFile = async function (params) {
+  console.log(params);
+  return insertTitle(params);
+};
+
+module.exports = { getFileList, addFile };
