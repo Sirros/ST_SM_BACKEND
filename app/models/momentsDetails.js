@@ -7,7 +7,7 @@ const MomentDetailsModel = sequelize.define(
   {
     poster: { type: DataTypes.STRING, allowNull: true },
     url: { type: DataTypes.STRING, allowNull: false },
-    _momentId: { type: DataTypes.NUMBER, allowNull: false, primaryKey: true },
+    _momentId: { type: DataTypes.NUMBER, allowNull: false },
   },
   {
     freezeTableName: true,
@@ -20,6 +20,9 @@ const MomentDetailsModel = sequelize.define(
 MomentTitleModel.hasMany(MomentDetailsModel, {
   foreignKey: "_momentId",
   as: "picList",
+});
+MomentDetailsModel.belongsTo(MomentDetailsModel, {
+  foreignKey: "_momentId",
 });
 
 module.exports = MomentDetailsModel;
