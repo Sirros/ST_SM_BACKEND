@@ -3,6 +3,7 @@ const { getWelcomePageInfo } = require("../app/service/welcome_service");
 const { getSeduleDetails } = require("../app/service/sechdule_service");
 const { getRosterPageDate } = require("../app/service/roster_service");
 const { getMatchInfo } = require("../app/service/match_info_service");
+const { getFileList } = require("../app/service/moments_service");
 
 router.get("/", async (ctx, next) => {
   await ctx.render("index", {
@@ -31,6 +32,10 @@ router.get("/api/getRosterData", async (ctx, next) => {
 
 router.get("/api/getResultData", async (ctx, next) => {
   ctx.body = await getMatchInfo();
+});
+
+router.get("/api/getFileList", async (ctx, next) => {
+  ctx.body = await getFileList();
 });
 
 router.get("/json", async (ctx, next) => {

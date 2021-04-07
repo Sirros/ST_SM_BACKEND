@@ -1,6 +1,6 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../../config/db").sequelize;
-const OurTeamMatchInfoModel = require("./ourTeamMatchInfo");
+// const OurTeamMatchInfoModel = require("./ourTeamMatchInfo");
 
 const MatchPlayersInfoModel = sequelize.define(
   "match_players_info",
