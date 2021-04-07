@@ -36,7 +36,6 @@ const getSeduleDetails = async function () {
       }
     });
   });
-
   return {
     mon,
     details,

@@ -1,6 +1,5 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../../config/db").sequelize;
-const MomentDetailsModel = require("./momentsDetails");
 
 const MomentTitleModel = sequelize.define(
   "moments_title",
@@ -15,15 +14,5 @@ const MomentTitleModel = sequelize.define(
     timestamps: false,
   }
 );
-
-MomentTitleModel.hasMany(MomentDetailsModel, {
-  foreignKey: "_momentId",
-  sourceKey: "momentId",
-});
-
-MomentDetailsModel.belongsTo(MomentTitleModel, {
-  foreignKey: "_momentId",
-  targetKey: "momentId",
-});
 
 module.exports = MomentTitleModel;

@@ -13,7 +13,7 @@ router.get("/", async (ctx, next) => {
 
 router.get("/api/getWelcomeData", async (ctx, next) => {
   const info = await getWelcomePageInfo();
-  ctx.body = info;
+  ctx.body = { ...info, ...info.dataValues };
 });
 
 router.get("/api/getSechduleData", async (ctx, next) => {
@@ -23,6 +23,7 @@ router.get("/api/getSechduleData", async (ctx, next) => {
 
 router.get("/api/getRosterData", async (ctx, next) => {
   const data = await getRosterPageDate();
+  console.log(data);
   ctx.body = {
     total: {
       ...data,

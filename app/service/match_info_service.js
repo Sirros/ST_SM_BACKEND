@@ -26,12 +26,12 @@ const getMatchInfo = async function () {
       assist,
       block,
       fault,
-    } = players[i];
+    } = players[i].dataValues;
 
-    players[i].shot = `${twopoint_get}/${shot_time}`;
-    players[i].threepoint = `${threepoint_get}/${threepoint_time}`;
-    players[i].penalty = `${onepoint_get}/${penalty_time}`;
-    players[i].efficient =
+    players[i].dataValues.shot = `${twopoint_get}/${shot_time}`;
+    players[i].dataValues.threepoint = `${threepoint_get}/${threepoint_time}`;
+    players[i].dataValues.penalty = `${onepoint_get}/${penalty_time}`;
+    players[i].dataValues.efficient =
       (score +
         rebound +
         assist +
@@ -64,62 +64,63 @@ const getMatchInfo = async function () {
     let threeCount = 0;
     let threeGet = 0;
     let total = 0;
+    const { our_team, opponent_team } = d;
+    const { ST, ND, RD, TH } = opponent_team.dataValues;
 
     (d.zhexian_Data = [
       {
         section: "1ST",
         team: "team_1",
-        temperature: d.our_team.ST,
+        temperature: our_team.dataValues.ST,
       },
       {
         section: "1ST",
         team: "team_2",
-        temperature: d.opponent_team.ST,
+        temperature: ST,
       },
       {
         section: "2ND",
         team: "team_1",
-        temperature: d.our_team.ND,
+        temperature: our_team.dataValues.ND,
       },
       {
         section: "2ND",
         team: "team_2",
-        temperature: d.opponent_team.ND,
+        temperature: ND,
       },
       {
         section: "3RD",
         team: "team_1",
-        temperature: d.our_team.RD,
+        temperature: our_team.dataValues.RD,
       },
       {
         section: "3RD",
         team: "team_2",
-        temperature: d.opponent_team.RD,
+        temperature: RD,
       },
       {
         section: "4TH",
         team: "team_1",
-        temperature: d.our_team.TH,
+        temperature: our_team.dataValues.TH,
       },
       {
         section: "4TH",
         team: "team_2",
-        temperature: d.opponent_team.TH,
+        temperature: TH,
       },
       {
         section: "Total",
         team: "team_1",
         temperature:
-          d.our_team.ST + d.our_team.ND + d.our_team.RD + d.our_team.TH,
+          our_team.dataValues.ST +
+          our_team.dataValues.ND +
+          our_team.dataValues.RD +
+          our_team.dataValues.TH,
       },
       {
         section: "Total",
         team: "team_2",
-        temperature:
-          d.opponent_team.ST +
-          d.opponent_team.ND +
-          d.opponent_team.RD +
-          d.opponent_team.TH,
+        temperature: ST + ND + RD + TH,
       },
     ]),
       players.forEach((p, idx) => {
@@ -130,9 +131,10 @@ const getMatchInfo = async function () {
           shot_time,
           threepoint_get,
           threepoint_time,
-        } = p;
+          _matchId,
+        } = p.dataValues;
 
-        if (p._matchId === d.our_team.matchId) {
+        if (_matchId == our_team.dataValues.matchId) {
           oneCount += penalty_time;
           oneGet += onepoint_get;
           twoCount += shot_time;
@@ -140,7 +142,8 @@ const getMatchInfo = async function () {
           threeCount += threepoint_time;
           threeGet += threepoint_get;
           total = oneGet + twoGet + threeGet;
-          d.our_players_detail.push(p);
+
+          d.our_players_detail.push(p.dataValues);
 
           d.our_binData = [
             { item: "两分球", count: twoGet, percent: twoGet / total },
@@ -166,6 +169,12 @@ const getMatchInfo = async function () {
       });
   });
 
+  for (let i = 0; i < details.length; i++) {
+    const { dataValues: od } = details[i].our_team;
+    const { dataValues: oppod } = details[i].opponent_team;
+    details[i].our_team = od;
+    details[i].opponent_team = oppod;
+  }
   return {
     details,
   };

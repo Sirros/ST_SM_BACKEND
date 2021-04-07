@@ -20,7 +20,7 @@ const sequelize = new Sequelize(
     logging: (log) => {
       console.log(log);
     },
-    query: { raw: true },
+    // query: { raw: true },
   }
 );
 
