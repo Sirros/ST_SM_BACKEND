@@ -13,6 +13,7 @@ const {
   getTotalList,
   updateList,
   addUser,
+  deleteUser,
 } = require("../app/service/sub_roster_service");
 
 router.get("/", async (ctx, next) => {
@@ -147,6 +148,22 @@ router.post("/api/addUser", async (ctx, next) => {
     .catch((err) => {
       ret.status = 5002;
       ret.status = "添加失败";
+      ret.error = err;
+    });
+  ctx.body = ret;
+});
+
+router.post("/api/deleteUser", async (ctx, next) => {
+  const ret = {};
+  await deleteUser({ uid: ctx.request.body.uid })
+    .then((res) => {
+      ret.status = 5001;
+      ret.text = "删除成功😊";
+      ret.newList = res;
+    })
+    .catch((err) => {
+      ret.status = 5002;
+      ret.status = "删除失败";
       ret.error = err;
     });
   ctx.body = ret;
