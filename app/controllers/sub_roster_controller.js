@@ -14,4 +14,9 @@ const updateItem = async function (params) {
   return RosterModel.findAll();
 };
 
-module.exports = { getTotal, updateItem };
+const addItem = async function (params) {
+  await RosterModel.create(params);
+  return RosterModel.findAll();
+};
+
+module.exports = { getTotal, updateItem, addItem };

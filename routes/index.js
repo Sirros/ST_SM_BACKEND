@@ -12,6 +12,7 @@ const {
 const {
   getTotalList,
   updateList,
+  addUser,
 } = require("../app/service/sub_roster_service");
 
 router.get("/", async (ctx, next) => {
@@ -101,6 +102,52 @@ router.post("/api/updateUser", async (ctx, next) => {
       ret.err = e;
       ret.status = 5002;
       ret.text = "服务器错误，请重试";
+    });
+  ctx.body = ret;
+});
+
+router.post("/api/addUser", async (ctx, next) => {
+  const ret = {};
+  const {
+    name,
+    studentId,
+    grade,
+    key,
+    attr,
+    charge,
+    height,
+    weight,
+    jersey_number,
+    em,
+    phone,
+    remark,
+    area,
+  } = ctx.request.body;
+  console.log(name, studentId);
+  await addUser({
+    name,
+    studentId,
+    grade,
+    key,
+    attr,
+    charge,
+    height,
+    weight,
+    jersey_number,
+    em,
+    phone,
+    remark,
+    area,
+  })
+    .then((res) => {
+      ret.addResult = res;
+      ret.status = 5001;
+      ret.status = "添加成功😊";
+    })
+    .catch((err) => {
+      ret.status = 5002;
+      ret.status = "添加失败";
+      ret.error = err;
     });
   ctx.body = ret;
 });

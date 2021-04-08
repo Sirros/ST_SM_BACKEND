@@ -1,6 +1,6 @@
 const subRosterController = require("../controllers/sub_roster_controller");
 
-const { getTotal, updateItem } = subRosterController;
+const { getTotal, updateItem, addItem } = subRosterController;
 
 const getTotalList = async function () {
   const data = await getTotal();
@@ -20,4 +20,13 @@ const updateList = async function (params) {
   return data;
 };
 
-module.exports = { getTotalList, updateList };
+const addUser = async function (params) {
+  const res = await addItem(params);
+  const data = [];
+  res.forEach((r) => {
+    data.push(r.dataValues);
+  });
+  return data;
+};
+
+module.exports = { getTotalList, updateList, addUser };
