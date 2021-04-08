@@ -19,6 +19,7 @@ const MemberModel = sequelize.define(
     birthday: { type: DataTypes.STRING, allowNull: true },
     area: { type: DataTypes.STRING, allowNull: true },
     signature: { type: DataTypes.STRING, allowNull: true },
+    key: { type: DataTypes.STRING, allowNull: false },
   },
   {
     freezeTableName: true,

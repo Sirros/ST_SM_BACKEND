@@ -9,6 +9,10 @@ const {
   createItem,
   updateItem,
 } = require("../app/service/honor_service");
+const {
+  getTotalList,
+  updateList,
+} = require("../app/service/sub_roster_service");
 
 router.get("/", async (ctx, next) => {
   await ctx.render("index", {
@@ -28,7 +32,6 @@ router.get("/api/getSechduleData", async (ctx, next) => {
 
 router.get("/api/getRosterData", async (ctx, next) => {
   const data = await getRosterPageDate();
-  console.log(data);
   ctx.body = {
     total: {
       ...data,
@@ -56,7 +59,6 @@ router.post("/api/postNewFile", async (ctx, next) => {
 
 router.get("/api/getHonorList", async (ctx, next) => {
   const res = await retHonorList();
-  console.log(res);
   res.honorList = { ...res };
   ctx.body = res;
 });
@@ -79,10 +81,28 @@ router.post("/api/updateHonorItem", async (ctx, next) => {
   ctx.body = ret;
 });
 
-// router.get("/json", async (ctx, next) => {
-//   ctx.body = {
-//     title: "koa2 json",
-//   };
-// });
+router.get("/api/getTotalPerson", async (ctx, next) => {
+  const res = await getTotalList();
+  ctx.body = {
+    total: res,
+  };
+});
+
+router.post("/api/updateUser", async (ctx, next) => {
+  const ret = {};
+  const { uid, changeKey, changeRow } = ctx.request.body;
+  await updateList({ uid, changeKey, changeRow })
+    .then((res) => {
+      ret.status = 5001;
+      ret.text = "修改成功😊";
+      ret.newTotal = res;
+    })
+    .catch((e) => {
+      ret.err = e;
+      ret.status = 5002;
+      ret.text = "服务器错误，请重试";
+    });
+  ctx.body = ret;
+});
 
 module.exports = router;
