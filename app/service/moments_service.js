@@ -7,7 +7,6 @@ const getFileList = async function () {
 };
 
 const addFile = async function (params) {
-  console.log(params);
   return insertTitle(params);
 };
 
