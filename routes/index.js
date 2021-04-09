@@ -15,6 +15,7 @@ const {
   addUser,
   deleteUser,
 } = require("../app/service/sub_roster_service");
+const { insertMainFunc } = require("../app/service/sub_dataResult_service");
 
 router.get("/", async (ctx, next) => {
   await ctx.render("index", {
@@ -164,6 +165,22 @@ router.post("/api/deleteUser", async (ctx, next) => {
     .catch((err) => {
       ret.status = 5002;
       ret.status = "删除失败";
+      ret.error = err;
+    });
+  ctx.body = ret;
+});
+
+router.post("/api/postMatchTotalInfo", async (ctx, next) => {
+  const ret = {};
+  const { matchDetail, matchInfo } = ctx.request.body;
+  await insertMainFunc(matchDetail, matchInfo)
+    .then((res) => {
+      ret.status = 5001;
+      ret.text = "录入成功😊";
+    })
+    .catch((err) => {
+      ret.status = 5002;
+      ret.text = "录入失败";
       ret.error = err;
     });
   ctx.body = ret;

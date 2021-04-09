@@ -1,11 +1,10 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../../config/db").sequelize;
-// const OurTeamMatchInfoModel = require("./ourTeamMatchInfo");
 
 const MatchPlayersInfoModel = sequelize.define(
   "match_players_info",
   {
-    _matchId: { type: DataTypes.NUMBER, allowNull: false },
+    matchId: { type: DataTypes.NUMBER, allowNull: false },
     name: { type: DataTypes.NUMBER, allowNull: false },
     studentId: { type: DataTypes.NUMBER, allowNull: false },
     score: { type: DataTypes.NUMBER, allowNull: false },
@@ -27,11 +26,5 @@ const MatchPlayersInfoModel = sequelize.define(
     timestamps: false,
   }
 );
-
-// OurTeamMatchInfoModel.hasMany(MatchPlayersInfoModel, {
-//   foreignKey: "_matchId",
-//   targetKey: "matchId",
-// });
-// MatchPlayersInfoModel.belongsTo(OurTeamMatchInfoModel);
 
 module.exports = MatchPlayersInfoModel;

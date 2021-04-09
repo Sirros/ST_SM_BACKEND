@@ -131,10 +131,10 @@ const getMatchInfo = async function () {
           shot_time,
           threepoint_get,
           threepoint_time,
-          _matchId,
+          matchId,
         } = p.dataValues;
 
-        if (_matchId == our_team.dataValues.matchId) {
+        if (matchId == our_team.dataValues.matchId) {
           oneCount += penalty_time;
           oneGet += onepoint_get;
           twoCount += shot_time;
