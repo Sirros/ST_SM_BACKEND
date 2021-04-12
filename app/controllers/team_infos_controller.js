@@ -2,6 +2,7 @@ const TeamInfoModel = require("../models/teamInfo");
 const MemberModel = require("../models/members");
 const RulesModel = require("../models/rules");
 const _ = require("lodash");
+const fs = require("fs");
 
 const getTeamInfo = async function () {
   let res = {};
@@ -62,11 +63,18 @@ const updateInfo = async function (params) {
     vice_captain,
     manager,
     criterion,
-    imageUrl,
+    imgB64,
   } = params;
   const obj = {};
 
-  obj.logoUrl = imageUrl;
+  if (imgB64) {
+    const base64Data = imgB64.replace(/^data:image\/\w+;base64,/, "");
+    const dataBuffer = Buffer.from(base64Data, "base64");
+    fs.writeFile("./public/images/logo/logo.jpeg", dataBuffer, function (err) {
+      return err;
+    });
+  }
+
   obj.groupChat = qq_number;
   obj.criterion = criterion;
   obj.principal = principal;

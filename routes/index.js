@@ -20,6 +20,8 @@ const {
   sendTeamInfo,
   updateResult,
 } = require("../app/service/team_infos_service");
+const fs = require("fs");
+const path = require("path");
 
 router.get("/", async (ctx, next) => {
   await ctx.render("index", {
@@ -206,6 +208,14 @@ router.get("/api/getTeamInfo", async (ctx, next) => {
 
 router.post("/api/updateTeamInfo", async (ctx, next) => {
   let ret = {};
+  // const { imgB64 } = ctx.request.body;
+  // if (imgB64) {
+  //   const base64Data = imgB64.replace(/^data:image\/\w+;base64,/, "");
+  //   const dataBuffer = Buffer.from(base64Data, "base64");
+  //   fs.writeFile("./public/images/logo/logo.jpeg", dataBuffer, function (err) {
+  //     console.log(err);
+  //   });
+  // }
   await updateResult(ctx.request.body)
     .then((res) => {
       ret = res;
@@ -218,5 +228,10 @@ router.post("/api/updateTeamInfo", async (ctx, next) => {
     });
   ctx.body = ret;
 });
+
+// router.post("/img/logo", async (ctx, next) => {
+//   console.log(ctx.request.body);
+//   ctx.body = "haha";
+// });
 
 module.exports = router;
