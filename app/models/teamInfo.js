@@ -10,6 +10,10 @@ const TeamInfoModel = sequelize.define(
     expenditure: { type: DataTypes.NUMBER, allowNull: true },
     logoUrl: { type: DataTypes.STRING, allowNull: false },
     weather: { type: DataTypes.STRING, allowNull: true },
+    groupChat: { type: DataTypes.STRING, allowNull: true },
+    teamAttr: { type: DataTypes.STRING, allowNull: true },
+    department: { type: DataTypes.STRING, allowNull: true },
+    HeadofDep: { type: DataTypes.STRING, allowNull: true },
   },
   {
     freezeTableName: true,

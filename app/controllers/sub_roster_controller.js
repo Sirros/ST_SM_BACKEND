@@ -19,6 +19,13 @@ const updateItem = async function (params) {
 };
 
 const addItem = async function (params) {
+  if (params.attr === "经理") {
+    params.type = "manager";
+  } else if (params.attr === "队长" || params.attr === "副队长") {
+    params.type = "captain";
+  } else {
+    params.type = "baller";
+  }
   await RosterModel.create(params);
   return RosterModel.findAll({
     order: [["grade", "ASC"]],

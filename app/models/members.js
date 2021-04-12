@@ -5,7 +5,7 @@ const MemberModel = sequelize.define(
   "total_members",
   {
     name: { type: DataTypes.STRING, allowNull: false },
-    studentId: { type: DataTypes.NUMBER, allowNull: false },
+    studentId: { type: DataTypes.NUMBER, allowNull: false, primaryKey: true },
     grade: { type: DataTypes.NUMBER, allowNull: false },
     attr: { type: DataTypes.STRING, allowNull: true },
     charge: { type: DataTypes.STRING, allowNull: true },
@@ -20,6 +20,7 @@ const MemberModel = sequelize.define(
     area: { type: DataTypes.STRING, allowNull: true },
     signature: { type: DataTypes.STRING, allowNull: true },
     key: { type: DataTypes.STRING, allowNull: false },
+    type: { type: DataTypes.STRING, allowNull: false },
   },
   {
     freezeTableName: true,

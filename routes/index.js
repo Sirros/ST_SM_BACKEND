@@ -16,6 +16,10 @@ const {
   deleteUser,
 } = require("../app/service/sub_roster_service");
 const { insertMainFunc } = require("../app/service/sub_dataResult_service");
+const {
+  sendTeamInfo,
+  updateResult,
+} = require("../app/service/team_infos_service");
 
 router.get("/", async (ctx, next) => {
   await ctx.render("index", {
@@ -182,6 +186,35 @@ router.post("/api/postMatchTotalInfo", async (ctx, next) => {
       ret.status = 5002;
       ret.text = "录入失败";
       ret.error = err;
+    });
+  ctx.body = ret;
+});
+
+router.get("/api/getTeamInfo", async (ctx, next) => {
+  let ret = {};
+  await sendTeamInfo()
+    .then((res) => {
+      ret = res;
+    })
+    .catch((err) => {
+      ret.error = err;
+      ret.status = 9001;
+      ret.text = "获取失败";
+    });
+  ctx.body = ret;
+});
+
+router.post("/api/updateTeamInfo", async (ctx, next) => {
+  let ret = {};
+  await updateResult(ctx.request.body)
+    .then((res) => {
+      ret = res;
+      ret.status = 9000;
+    })
+    .catch((err) => {
+      ret.error = err;
+      ret.status = 9001;
+      ret.text = "更新失败";
     });
   ctx.body = ret;
 });
