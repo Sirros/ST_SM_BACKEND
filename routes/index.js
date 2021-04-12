@@ -3,7 +3,11 @@ const { getWelcomePageInfo } = require("../app/service/welcome_service");
 const { getSeduleDetails } = require("../app/service/sechdule_service");
 const { getRosterPageDate } = require("../app/service/roster_service");
 const { getMatchInfo } = require("../app/service/match_info_service");
-const { getFileList, addFile } = require("../app/service/moments_service");
+const {
+  getFileList,
+  addFile,
+  savePicture,
+} = require("../app/service/moments_service");
 const {
   retHonorList,
   createItem,
@@ -208,14 +212,6 @@ router.get("/api/getTeamInfo", async (ctx, next) => {
 
 router.post("/api/updateTeamInfo", async (ctx, next) => {
   let ret = {};
-  // const { imgB64 } = ctx.request.body;
-  // if (imgB64) {
-  //   const base64Data = imgB64.replace(/^data:image\/\w+;base64,/, "");
-  //   const dataBuffer = Buffer.from(base64Data, "base64");
-  //   fs.writeFile("./public/images/logo/logo.jpeg", dataBuffer, function (err) {
-  //     console.log(err);
-  //   });
-  // }
   await updateResult(ctx.request.body)
     .then((res) => {
       ret = res;
@@ -229,9 +225,24 @@ router.post("/api/updateTeamInfo", async (ctx, next) => {
   ctx.body = ret;
 });
 
-// router.post("/img/logo", async (ctx, next) => {
-//   console.log(ctx.request.body);
-//   ctx.body = "haha";
-// });
+router.post("/api/postPicture", async (ctx, next) => {
+  let ret = {};
+  try {
+    await savePicture(ctx.request.body)
+      .then((result) => {
+        ret = result;
+        ret.status = 9000;
+        ret.text = "图片添加成功";
+      })
+      .catch((err) => {
+        ret.error = err;
+        ret.status = 9001;
+        ret.text = "图片添加失败";
+      });
+    ctx.body = ret;
+  } catch (error) {
+    console.error(error);
+  }
+});
 
 module.exports = router;
