@@ -24,8 +24,10 @@ const {
   sendTeamInfo,
   updateResult,
 } = require("../app/service/team_infos_service");
-const fs = require("fs");
-const path = require("path");
+const {
+  sendSaveAnnouncementStatus,
+  sendSaveSechduleStatus,
+} = require("../app/service/announcement_service");
 
 router.get("/", async (ctx, next) => {
   await ctx.render("index", {
@@ -243,6 +245,35 @@ router.post("/api/postPicture", async (ctx, next) => {
   } catch (error) {
     console.error(error);
   }
+});
+
+router.post("/api/postAnnData", async (ctx, next) => {
+  let ret = {};
+  const { eventType } = ctx.request.body;
+  if (eventType === "daily") {
+    await sendSaveAnnouncementStatus(ctx.request.body)
+      .then((res) => {
+        ret.status = 9000;
+        ret.text = "发布日常公告成功😊";
+      })
+      .catch((err) => {
+        ret.error = err;
+        ret.status = 9001;
+        ret.text = "发布日常公告失败";
+      });
+  } else {
+    await sendSaveSechduleStatus(ctx.request.body)
+      .then((res) => {
+        ret.status = 9000;
+        ret.text = "更新日程表成功😊";
+      })
+      .catch((err) => {
+        ret.error = err;
+        ret.status = 9001;
+        ret.text = "更新日程表公告失败";
+      });
+  }
+  ctx.body = ret;
 });
 
 module.exports = router;
