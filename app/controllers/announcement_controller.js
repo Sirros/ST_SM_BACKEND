@@ -27,9 +27,7 @@ const saveNewSechdule = async function (params) {
     site == "court_2" ? "二号场" : site == "court_3" ? "三号场" : "待定"
   }`;
 
-  console.log("params");
   insertObj.eventName = eventName;
-  console.log(insertObj);
 
   return await SechduleModel.create(insertObj);
 };

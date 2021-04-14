@@ -2,13 +2,6 @@ const router = require("koa-router")();
 const MemberModel = require("../app/models/members");
 const UserAccountModel = require("../app/models/user_account");
 
-// (async () => {
-//   const checkUser = await MemberModel.findOne({
-//     where: { studentId: 2017141463192 },
-//   });
-//   console.log(checkUser.dataValues);
-// })();
-
 // router.prefix("/node/api"); // 路由公共前缀
 
 let _LOGIN_USER = {};

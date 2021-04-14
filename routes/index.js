@@ -138,7 +138,7 @@ router.post("/api/addUser", async (ctx, next) => {
     remark,
     area,
   } = ctx.request.body;
-  console.log(name, studentId);
+
   await addUser({
     name,
     studentId,
