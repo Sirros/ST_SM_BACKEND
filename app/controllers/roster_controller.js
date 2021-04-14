@@ -12,7 +12,7 @@ const getRosterList = async function () {
   });
   const players = await RosterModel.findAll({
     where: {
-      attr: "队员",
+      [Op.or]: [{ attr: "副队长" }, { attr: "队员" }],
     },
   });
   return {

@@ -279,17 +279,21 @@ router.post("/api/postAnnData", async (ctx, next) => {
 
 router.post("/api/updateUsernfo", async (ctx, next) => {
   const ret = {};
-  await sendUpdateState(ctx.request.body)
-    .then((res) => {
-      ret.newInfo = res.dataValues;
-      ret.status = 9000;
-      ret.text = "个人信息更新成功😊";
-    })
-    .catch((err) => {
-      ret.error = err;
-      ret.status = 9001;
-      ret.text = "个人信息更新失败";
-    });
+  try {
+    await sendUpdateState(ctx.request.body)
+      .then((res) => {
+        ret.newInfo = res.dataValues;
+        ret.status = 9000;
+        ret.text = "个人信息更新成功😊";
+      })
+      .catch((err) => {
+        ret.error = err;
+        ret.status = 9001;
+        ret.text = "个人信息更新失败";
+      });
+  } catch (error) {
+    console.log(error);
+  }
   ctx.body = ret;
 });
 

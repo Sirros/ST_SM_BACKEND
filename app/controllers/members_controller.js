@@ -7,6 +7,7 @@ const TeamInfoModel = require("../models/teamInfo");
 const AnnouncementModel = require("../models/announcement");
 const RulesModel = require("../models/rules");
 const SlideShowModel = require("../models/slideShow");
+const fs = require("fs");
 
 const getTotalMembers = async function () {
   const result = await MemberModel.findAll();
@@ -40,6 +41,22 @@ const getSlideShows = async function () {
 
 const updateUser = async function (params) {
   const targetId = params.studentId;
+
+  if (params.imageUrl) {
+    const extName = params.fileName.split(".")[1];
+    const base64Data = params.imageUrl.replace(/^data:image\/\w+;base64,/, "");
+    const dataBuffer = Buffer.from(base64Data, "base64");
+    params.avatar = `/images/avatar/${targetId}.${extName}`;
+
+    fs.writeFile(
+      `./public/images/avatar/${targetId}.${extName}`,
+      dataBuffer,
+      function (err) {
+        return err;
+      }
+    );
+  }
+
   await MemberModel.update(params, { where: { studentId: targetId } });
 
   return await MemberModel.findOne({
@@ -48,7 +65,6 @@ const updateUser = async function (params) {
     },
   });
 };
-
 module.exports = {
   getTotalMembers,
   getPictureCount,
