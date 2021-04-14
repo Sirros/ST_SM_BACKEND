@@ -1,54 +1,78 @@
 const router = require("koa-router")();
+const MemberModel = require("../app/models/members");
+const UserAccountModel = require("../app/models/user_account");
 
-// router.prefix("/node/api");
+// (async () => {
+//   const checkUser = await MemberModel.findOne({
+//     where: { studentId: 2017141463192 },
+//   });
+//   console.log(checkUser.dataValues);
+// })();
 
-router.get("/", function (ctx, next) {
-  ctx.body = "this is /node/api";
-});
+// router.prefix("/node/api"); // 路由公共前缀
 
-router.get("/bar", function (ctx, next) {
-  ctx.body = "this is a users/bar response";
-});
+let _LOGIN_USER = {};
 
-router.post("/api/login/account", function (ctx, next) {
-  const { userName, password, selectedUser } = ctx.request.body;
-  console.log(userName, password);
+router.post("/api/login/account", async function (ctx, next) {
   const ret = {};
-  ret.currentAuthority = selectedUser;
-  if (userName === "root" && password === "123456") {
-    ret.status = "ok";
+  const { userName, password, selectedUser } = ctx.request.body;
+
+  if (selectedUser !== "admin") {
+    const checkUser = await MemberModel.findOne({
+      where: { studentId: userName },
+    });
+    if (checkUser && checkUser.dataValues) {
+      _LOGIN_USER = {};
+      _LOGIN_USER = checkUser.dataValues;
+      _LOGIN_USER.userid = checkUser.dataValues.studentId;
+      // _LOGIN_USER.uid = checkUser.dataValues.studentId;
+
+      if (password == checkUser.dataValues.password) {
+        ret.currentAuthority = selectedUser;
+        ret.status = "ok";
+      } else {
+        ret.status = "error";
+        ret.text = "用户名或密码错误，请重试...";
+      }
+    } else {
+      ret.status = "error";
+      ret.text = "用户不存在";
+    }
   } else {
-    ret.status = "error";
+    const checkAdmin = await UserAccountModel.findOne({
+      where: {
+        userName: userName,
+      },
+    });
+    if (checkAdmin && checkAdmin.dataValues) {
+      _LOGIN_USER = {};
+      _LOGIN_USER = checkAdmin.dataValues;
+      _LOGIN_USER.userid = checkAdmin.dataValues.userName;
+      // _LOGIN_USER.uid = checkAdmin.dataValues.userName;
+
+      if (password == checkAdmin.password) {
+        ret.currentAuthority = selectedUser;
+        ret.status = "ok";
+      } else {
+        ret.status = "error";
+        ret.text = "管理员账号或密码错误，请重试...";
+      }
+    } else {
+      ret.status = "error";
+      ret.text = "管理员不存在";
+    }
   }
   ctx.body = ret;
 });
 
 router.get("/api/currentUser", function (ctx, next) {
-  ctx.body = {
-    name: "林子博",
-    avatar:
-      "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png",
-    userid: "00000001",
-    email: "antdesign@alipay.com",
-    signature: "海纳百川，有容乃大",
-    title: "17级篮球队队长",
-    group: "四川大学-软件学院",
-    notifyCount: 12,
-    unreadCount: 11,
-    country: "China",
-    geographic: {
-      province: {
-        label: "浙江省",
-        key: "330000",
-      },
-      city: {
-        label: "杭州市",
-        key: "330100",
-      },
-    },
-    address: "西湖区工专路 77 号",
-    phone: "13032867907",
-  };
+  ctx.body = _LOGIN_USER;
+});
+
+router.get("/api/getUserInfo", function (ctx, next) {
+  let temp = { ..._LOGIN_USER };
+  delete temp.userid;
+  ctx.body = temp;
 });
 
 module.exports = router;

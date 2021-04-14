@@ -21,6 +21,7 @@ const MemberModel = sequelize.define(
     signature: { type: DataTypes.STRING, allowNull: true },
     key: { type: DataTypes.STRING, allowNull: false },
     type: { type: DataTypes.STRING, allowNull: false },
+    password: { type: DataTypes.STRING, allowNull: false },
   },
   {
     freezeTableName: true,

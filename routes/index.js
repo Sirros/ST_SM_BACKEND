@@ -28,6 +28,7 @@ const {
   sendSaveAnnouncementStatus,
   sendSaveSechduleStatus,
 } = require("../app/service/announcement_service");
+const { sendUpdateState } = require("../app/service/update_user_service");
 
 router.get("/", async (ctx, next) => {
   await ctx.render("index", {
@@ -273,6 +274,22 @@ router.post("/api/postAnnData", async (ctx, next) => {
         ret.text = "更新日程表公告失败";
       });
   }
+  ctx.body = ret;
+});
+
+router.post("/api/updateUsernfo", async (ctx, next) => {
+  const ret = {};
+  await sendUpdateState(ctx.request.body)
+    .then((res) => {
+      ret.newInfo = res.dataValues;
+      ret.status = 9000;
+      ret.text = "个人信息更新成功😊";
+    })
+    .catch((err) => {
+      ret.error = err;
+      ret.status = 9001;
+      ret.text = "个人信息更新失败";
+    });
   ctx.body = ret;
 });
 

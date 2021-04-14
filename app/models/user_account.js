@@ -4,27 +4,12 @@ const sequelize = require("../../config/db").sequelize;
 const UserAccountModel = sequelize.define(
   "user_account",
   {
-    userName: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    type: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    userid: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      primaryKey: true,
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
+    userName: { type: DataTypes.STRING, allowNull: false },
+    password: { type: DataTypes.STRING, allowNull: false },
+    type: { type: DataTypes.STRING, allowNull: false },
+    userid: { type: DataTypes.STRING, allowNull: false, primaryKey: true },
+    name: { type: DataTypes.STRING, allowNull: false },
+    avatar: { type: DataTypes.STRING, allowNull: false },
   },
   {
     freezeTableName: true,

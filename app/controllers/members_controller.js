@@ -38,6 +38,17 @@ const getSlideShows = async function () {
   return await SlideShowModel.findAll();
 };
 
+const updateUser = async function (params) {
+  const targetId = params.studentId;
+  await MemberModel.update(params, { where: { studentId: targetId } });
+
+  return await MemberModel.findOne({
+    where: {
+      studentId: targetId,
+    },
+  });
+};
+
 module.exports = {
   getTotalMembers,
   getPictureCount,
@@ -45,4 +56,5 @@ module.exports = {
   getAnnouncement,
   getRules,
   getSlideShows,
+  updateUser,
 };
