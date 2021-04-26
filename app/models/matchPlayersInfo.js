@@ -5,8 +5,8 @@ const MatchPlayersInfoModel = sequelize.define(
   "match_players_info",
   {
     matchId: { type: DataTypes.NUMBER, allowNull: false },
-    name: { type: DataTypes.NUMBER, allowNull: false },
-    studentId: { type: DataTypes.NUMBER, allowNull: false },
+    name: { type: DataTypes.STRING, allowNull: false },
+    studentId: { type: DataTypes.STRING, allowNull: false },
     score: { type: DataTypes.NUMBER, allowNull: false },
     rebound: { type: DataTypes.NUMBER, allowNull: false },
     assist: { type: DataTypes.NUMBER, allowNull: false },

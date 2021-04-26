@@ -6,7 +6,7 @@
     "start": "node bin/www",
     "dev": "./node_modules/.bin/nodemon bin/www",
     "prd": "pm2 start bin/www",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_ENV=test jest --runInBand --forceExit --colors --detectOpenHandles"
   },
   "dependencies": {
     "debug": "^4.1.1",

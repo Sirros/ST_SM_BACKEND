@@ -5,15 +5,8 @@ const HonorsModel = sequelize.define(
   "honors",
   {
     info: { type: DataTypes.STRING, allowNull: false },
-    game_type: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      field: "type",
-    },
-    dateTime: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
+    game_type: { type: DataTypes.STRING, allowNull: false, field: "type" },
+    dateTime: { type: DataTypes.STRING, allowNull: false },
   },
   {
     freezeTableName: true,
