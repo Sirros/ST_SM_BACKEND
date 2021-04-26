@@ -5,8 +5,8 @@ const MemberModel = sequelize.define(
   "total_members",
   {
     name: { type: DataTypes.STRING, allowNull: false },
-    studentId: { type: DataTypes.NUMBER, allowNull: false, primaryKey: true },
-    grade: { type: DataTypes.NUMBER, allowNull: false },
+    studentId: { type: DataTypes.STRING, allowNull: false, primaryKey: true },
+    grade: { type: DataTypes.STRING, allowNull: false },
     attr: { type: DataTypes.STRING, allowNull: true },
     charge: { type: DataTypes.STRING, allowNull: true },
     remark: { type: DataTypes.STRING, allowNull: true },
