@@ -12,7 +12,8 @@ const fs = require("fs");
 const getTotalMembers = async function () {
   const result = await MemberModel.findAll();
   const managers = result.filter(
-    (item) => item.attr === "队长" || item.attr === "经理"
+    (item) =>
+      item.attr === "队长" || item.attr === "副队长" || item.attr === "经理"
   ).length;
   const players = result.filter((item) => item.attr === "队员").length;
   const autoScrollList = result.map((item) => item.signature);
