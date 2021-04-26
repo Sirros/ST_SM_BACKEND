@@ -2,7 +2,7 @@ const welcomeController = require("../controllers/members_controller");
 
 const {
   getTotalMembers,
-  getPictureCount,
+  // getPictureCount,
   getTeamInfo,
   getAnnouncement,
   getRules,
@@ -12,14 +12,14 @@ const {
 const getWelcomePageInfo = async function () {
   const counters = await getTotalMembers();
   const infoObj = await getTeamInfo();
-  const photos = await getPictureCount();
+  // const photos = await getPictureCount();
   const announcement = await getAnnouncement();
   const rules = await getRules();
   const slideShow = await getSlideShows();
   return {
     ...counters,
     ...infoObj[0],
-    photos,
+    // photos,
     announcement,
     rules,
     slideShow,

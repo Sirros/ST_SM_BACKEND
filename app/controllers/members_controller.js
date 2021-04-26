@@ -2,7 +2,7 @@
  * 获取首页各个部分信息 2021.04.01
  */
 const MemberModel = require("../models/members");
-const PictureModel = require("../models/picture");
+// const PictureModel = require("../models/picture");
 const TeamInfoModel = require("../models/teamInfo");
 const AnnouncementModel = require("../models/announcement");
 const RulesModel = require("../models/rules");
@@ -20,9 +20,9 @@ const getTotalMembers = async function () {
   return { players, managers, autoScrollList };
 };
 
-const getPictureCount = async function () {
-  return await PictureModel.count();
-};
+// const getPictureCount = async function () {
+//   return await PictureModel.count();
+// };
 
 const getTeamInfo = async function () {
   return await TeamInfoModel.findAll();
@@ -68,7 +68,7 @@ const updateUser = async function (params) {
 };
 module.exports = {
   getTotalMembers,
-  getPictureCount,
+  // getPictureCount,
   getTeamInfo,
   getAnnouncement,
   getRules,

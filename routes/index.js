@@ -133,6 +133,7 @@ router.post("/api/addUser", async (ctx, next) => {
     height,
     weight,
     jersey_number,
+    birthday,
     em,
     phone,
     remark,
@@ -149,6 +150,7 @@ router.post("/api/addUser", async (ctx, next) => {
     height,
     weight,
     jersey_number,
+    birthday,
     em,
     phone,
     remark,
@@ -265,10 +267,12 @@ router.post("/api/postAnnData", async (ctx, next) => {
   } else {
     await sendSaveSechduleStatus(ctx.request.body)
       .then((res) => {
+        console.log(res);
         ret.status = 9000;
         ret.text = "更新日程表成功😊";
       })
       .catch((err) => {
+        console.log(err);
         ret.error = err;
         ret.status = 9001;
         ret.text = "更新日程表公告失败";

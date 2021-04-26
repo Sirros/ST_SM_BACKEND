@@ -17,18 +17,22 @@ const saveNewAnnoucement = async function (params) {
 };
 
 const saveNewSechdule = async function (params) {
-  const { title, site, dateTime, events } = params;
+  console.log(params);
+  const { title, site, dateTime, editMode } = params;
   const insertObj = { time: dateTime };
-  const str = events.join("；");
+  let str = "";
 
-  insertObj.time = (insertObj.time - (insertObj.time % 10000)) / 100;
+  if (editMode === "list") {
+    str = params.events.join("；");
+  }
+
+  insertObj.time = (insertObj.time - (insertObj.time % 10000)) / 1000;
 
   const eventName = `标题：${title}；${str}；地点：${
     site == "court_2" ? "二号场" : site == "court_3" ? "三号场" : "待定"
   }`;
 
   insertObj.eventName = eventName;
-
   return await SechduleModel.create(insertObj);
 };
 

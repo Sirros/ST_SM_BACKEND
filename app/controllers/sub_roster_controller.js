@@ -26,7 +26,18 @@ const addItem = async function (params) {
   } else {
     params.type = "baller";
   }
-  await RosterModel.create(params);
+  console.log(params);
+  if (!params.password) {
+    params.password = "123456";
+    params.signature = "images/logo/logo.jpeg";
+  }
+  await RosterModel.create(params)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   return RosterModel.findAll({
     order: [["grade", "ASC"]],
   });
