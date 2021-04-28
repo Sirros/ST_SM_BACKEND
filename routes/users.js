@@ -146,4 +146,35 @@ router.post("/api/resetPassword", async function (ctx, next) {
   ctx.body = ret;
 });
 
+router.post("/api/changePassword", async function (ctx, next) {
+  const ret = {};
+  const { oldPsw, newPsw, uid } = ctx.request.body;
+
+  const checkUser = await MemberModel.findOne({
+    where: { studentId: uid },
+  });
+
+  if (oldPsw === checkUser.dataValues.password) {
+    await MemberModel.update(
+      { password: newPsw },
+      {
+        where: { studentId: uid },
+      }
+    )
+      .then((res) => {
+        ret.text = "修改成功";
+        ret.status = 10000;
+      })
+      .catch((err) => {
+        ret.text = "修改失败";
+        ret.status = 10001;
+        ret.error = err;
+      });
+  } else {
+    ret.text = "原密码输入有误";
+    ret.status = 10001;
+  }
+  ctx.body = ret;
+});
+
 module.exports = router;
