@@ -2,11 +2,12 @@
  * 获取首页各个部分信息 2021.04.01
  */
 const MemberModel = require("../models/members");
-// const PictureModel = require("../models/picture");
+const MomentDetailsModel = require("../models/momentsDetails");
 const TeamInfoModel = require("../models/teamInfo");
 const AnnouncementModel = require("../models/announcement");
 const RulesModel = require("../models/rules");
 const SlideShowModel = require("../models/slideShow");
+const SechduleModel = require("../models/sechdules");
 const fs = require("fs");
 
 const getTotalMembers = async function () {
@@ -20,9 +21,9 @@ const getTotalMembers = async function () {
   return { players, managers, autoScrollList };
 };
 
-// const getPictureCount = async function () {
-//   return await PictureModel.count();
-// };
+const getPictureCount = async function () {
+  return await MomentDetailsModel.count();
+};
 
 const getTeamInfo = async function () {
   return await TeamInfoModel.findAll();
@@ -38,6 +39,10 @@ const getRules = async function () {
 
 const getSlideShows = async function () {
   return await SlideShowModel.findAll();
+};
+
+const getComingMatch = async function () {
+  return await SechduleModel.findAll();
 };
 
 const updateUser = async function (params) {
@@ -68,10 +73,11 @@ const updateUser = async function (params) {
 };
 module.exports = {
   getTotalMembers,
-  // getPictureCount,
+  getPictureCount,
   getTeamInfo,
   getAnnouncement,
   getRules,
   getSlideShows,
+  getComingMatch,
   updateUser,
 };

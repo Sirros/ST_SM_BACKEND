@@ -18,7 +18,7 @@ const saveNewAnnoucement = async function (params) {
 
 const saveNewSechdule = async function (params) {
   console.log(params);
-  const { title, site, dateTime, editMode } = params;
+  const { title, site, dateTime, editMode, eventType } = params;
   const insertObj = { time: dateTime };
   let str = "";
 
@@ -33,6 +33,7 @@ const saveNewSechdule = async function (params) {
   }`;
 
   insertObj.eventName = eventName;
+  insertObj.type = eventType;
   return await SechduleModel.create(insertObj);
 };
 

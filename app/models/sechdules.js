@@ -6,6 +6,7 @@ const SechduleModel = sequelize.define(
   {
     eventName: { type: DataTypes.STRING, allowNull: false },
     time: { type: DataTypes.STRING, allowNull: false },
+    type: { type: DataTypes.STRING, allowNull: false },
   },
   {
     freezeTableName: true,

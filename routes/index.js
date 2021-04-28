@@ -38,7 +38,8 @@ router.get("/", async (ctx, next) => {
 
 router.get("/api/getWelcomeData", async (ctx, next) => {
   const info = await getWelcomePageInfo();
-  ctx.body = { ...info, ...info.dataValues };
+  console.log(info);
+  ctx.body = { ...info.dataValues, ...info };
 });
 
 router.get("/api/getSechduleData", async (ctx, next) => {
