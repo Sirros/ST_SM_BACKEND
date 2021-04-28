@@ -159,8 +159,8 @@ test("opponentTeamMatchInfo model create test", () => {
   expect(oppo.team).toBe("test team");
 });
 
-test("outTeamMatchInfo model create test", () => {
-  const our = OpponentTeamMatchInfoModel.build({
+test("ourTeamMatchInfo model create test", () => {
+  const our = OurTeamMatchInfoModel.build({
     matchId: 10091,
     ST: "test ST",
     ND: "test ND",

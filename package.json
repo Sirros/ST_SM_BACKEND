@@ -24,6 +24,7 @@
     "koa2-cors": "^2.0.6",
     "moment": "^2.29.1",
     "mysql2": "^2.2.5",
+    "nodemailer": "^6.5.0",
     "sequelize": "^6.6.2",
     "supertest": "^6.1.3"
   },
