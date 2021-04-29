@@ -2,6 +2,7 @@
  * 获取moment 2021.04.07
  */
 const fs = require("fs");
+const path = require("path");
 const MomentTitleModel = require("../models/momentsTitle");
 const MomentDetailsModel = require("../models/momentsDetails");
 
@@ -19,6 +20,17 @@ const getFile = async function () {
 };
 
 const insertTitle = async function (params) {
+  fs.mkdirSync(
+    path.resolve(
+      __dirname,
+      "..",
+      "..",
+      "public",
+      "images",
+      "picture_wall",
+      `${params.title}`
+    )
+  );
   return MomentTitleModel.create(params);
 };
 
@@ -26,6 +38,7 @@ const addList = async function (params) {
   const { picture_list = [], target_folder } = params;
   const arr = [];
   const prePath = `/images/picture_wall/${target_folder}`;
+
   const uid = await MomentTitleModel.findOne({
     where: {
       title: target_folder,
