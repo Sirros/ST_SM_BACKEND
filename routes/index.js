@@ -29,6 +29,7 @@ const {
   sendSaveSechduleStatus,
 } = require("../app/service/announcement_service");
 const { sendUpdateState } = require("../app/service/update_user_service");
+const { change } = require("../app/service/consumer_log_service");
 
 router.get("/", async (ctx, next) => {
   await ctx.render("index", {
@@ -298,6 +299,25 @@ router.post("/api/updateUsernfo", async (ctx, next) => {
       });
   } catch (error) {
     console.log(error);
+  }
+  ctx.body = ret;
+});
+
+router.post("/api/changeMoney", async (ctx, next) => {
+  const ret = {};
+  try {
+    await change(ctx.request.body)
+      .then((res) => {
+        ret.text = "修改成功";
+        ret.status = 9000;
+      })
+      .catch((err) => {
+        ret.text = "修改失败";
+        ret.status = 9001;
+        ret.error = err;
+      });
+  } catch (error) {
+    console.error(error);
   }
   ctx.body = ret;
 });
